@@ -15,5 +15,4 @@ class TestChangeUserData:
         user_methods = UserMethods()
         status_code, response_message = user_methods.change_user_data_unauthorized()
         assert status_code == 401
-        assert response_message == messages.CHANGE_USER_DATA_UNAUTHORIZED
-
+        assert response_message == messages.SHOULD_BE_AUTHORIZED

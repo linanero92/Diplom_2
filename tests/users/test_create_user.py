@@ -12,13 +12,13 @@ class TestCreateUser:
 
     def test_create_user_with_existing_data(self):
         user_methods = UserMethods()
-        status_code, response_message = user_methods.try_to_create_user_with_existing_data()
+        status_code, response_message = user_methods.create_user_with_existing_data()
         assert status_code == 403
         assert response_message == messages.USER_EXISTS
 
     def test_create_new_user_without_password(self):
         user_methods = UserMethods()
-        status_code, response_message = user_methods.try_to_create_new_user_without_password()
+        status_code, response_message = user_methods.create_new_user_without_password()
         assert status_code == 403
         assert response_message == messages.NOT_ENOUGH_DATA
 
