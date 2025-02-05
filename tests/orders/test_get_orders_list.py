@@ -5,11 +5,14 @@ import allure
 
 class TestGetOrdersList:
 
+    @allure.title('Проверка получения списка заказов под авторизованным пользователем')
     def test_get_orders_list_authorized(self):
         order_methods = OrderMethods()
         status_code, response_message = order_methods.get_orders_list_authorized()
         assert status_code == 200
+        assert 'orders' in response_message
 
+    @allure.title('Проверка получения списка заказов без авторизации пользователя')
     def test_get_orders_list_unauthorized(self):
         order_methods = OrderMethods()
         status_code, response_message = order_methods.get_orders_list_unauthorized()

@@ -4,6 +4,7 @@ import requests
 from urls import *
 import allure
 
+
 class Generator:
 
     @staticmethod
@@ -18,6 +19,7 @@ class Generator:
         digits = ''.join(random.choice(characters) for _ in range(length))
         return f"test_user_{digits}@ya.ru"
 
+    @allure.step('Создание пользователя')
     def create_random_user(self):
         email = Generator.generate_random_email(5)
         password = Generator.generate_random_string(7)
@@ -28,12 +30,9 @@ class Generator:
             "password": password,
             "name": name
         }
+
         auth_data = [email, password, name]
         response = requests.post(f"{BASE_URL}{USERS_URL}/register", json=payload)
         response_json = response.json()
         token = response_json.get('accessToken')
         return response.status_code, auth_data, token
-
-
-generator = Generator()
-print(generator.create_random_user())
