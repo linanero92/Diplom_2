@@ -8,10 +8,10 @@ from methods.user_methods import UserMethods
 class OrderMethods:
 
     @allure.step('Создание заказа под авторизованным пользователем')
-    def make_order_authorized(self):
+    def make_order_authorized(self, email, password, name):
         data = Data
         user_methods = UserMethods()
-        token = user_methods.user_login()
+        token = user_methods.user_login(email, password, name)
         headers = {'Authorization': token[1]}
 
         payload = {
@@ -33,10 +33,10 @@ class OrderMethods:
         return response.status_code
 
     @allure.step('Создание заказа без добавления ингредиентов под авторизованным пользователем')
-    def make_order_without_ingredients_authorized(self):
+    def make_order_without_ingredients_authorized(self, email, password, name):
         data = Data
         user_methods = UserMethods()
-        token = user_methods.user_login()
+        token = user_methods.user_login(email, password, name)
         headers = {'Authorization': token[1]}
 
         payload = {
@@ -58,10 +58,10 @@ class OrderMethods:
         return response.status_code
 
     @allure.step('Получение списка заказов под авторизованным пользователем')
-    def get_orders_list_authorized(self):
+    def get_orders_list_authorized(self, email, password, name):
         data = Data
         user_methods = UserMethods()
-        token = user_methods.user_login()
+        token = user_methods.user_login(email, password, name)
         headers = {'Authorization': token[1]}
 
         payload = {
@@ -76,8 +76,3 @@ class OrderMethods:
     def get_orders_list_unauthorized(self):
         response = requests.get(f'{BASE_URL}{ORDERS_URL}')
         return response.status_code, response.json()['message']
-
-
-
-order_method = OrderMethods
-print(order_method.get_orders_list_authorized)

@@ -7,11 +7,6 @@ from helpers import Generator
 
 class UserMethods:
 
-    @allure.step('Регистрация нового пользователя')
-    def create_new_user(self):
-        generator = Generator()
-        return generator.create_random_user()
-
     @allure.step('Регистрация нового пользователя c уже существующими данными')
     def create_user_with_existing_data(self):
         data = Data()
@@ -20,26 +15,23 @@ class UserMethods:
         return response.status_code, response.json()['message']
 
     @allure.step('Регистрация нового пользователя без ввода пароля')
-    def create_new_user_without_password(self):
-        generator = Generator()
+    def create_new_user_without_password(self, email, name):
 
         payload = {
-            'email': generator.generate_random_email(5),
-            'name': generator.generate_random_string(7)
+            'email': email,
+            'name': name
         }
 
         response = requests.post(f'{BASE_URL}{USERS_URL}/register', json=payload)
         return response.status_code, response.json()['message']
 
     @allure.step('Авторизация под существующим пользователем')
-    def user_login(self):
-        generator = Generator()
-        _, auth_data, _ = generator.create_random_user()
+    def user_login(self, email, password, name):
 
         payload = {
-            'email': auth_data[0],
-            'password': auth_data[1],
-            'name': auth_data[2]
+            'email': email,
+            'password': password,
+            'name': name
         }
 
         response = requests.post(f'{BASE_URL}{USERS_URL}/login', json=payload)
@@ -47,10 +39,8 @@ class UserMethods:
         return response.status_code, token
 
     @allure.step('Авторизация с неверным вводом email')
-    def user_login_with_wrong_email(self):
-        generator = Generator()
+    def user_login_with_wrong_email(self, password, name):
         data = Data
-        status_code, password, name = generator.create_random_user()
 
         payload = {
             'email': data.wrong_email,
@@ -62,10 +52,8 @@ class UserMethods:
         return response.status_code, response.json()['message']
 
     @allure.step('Авторизация с неверным вводом пароля')
-    def user_login_with_wrong_password(self):
-        generator = Generator()
+    def user_login_with_wrong_password(self, email, name):
         data = Data()
-        status_code, email, name = generator.create_random_user()
 
         payload = {
             'email': email,
@@ -77,10 +65,10 @@ class UserMethods:
         return response.status_code, response.json()['message']
 
     @allure.step('Изменение данных под авторизованным пользователем')
-    def change_user_data_authorized(self):
-        generator = Generator()
-        token = self.user_login()
+    def change_user_data_authorized(self, email, password, name):
+        token = self.user_login(email, password, name)
         headers = {'Authorization': token[1]}
+        generator = Generator()
 
         payload = {
             'password': generator.generate_random_string(7)
