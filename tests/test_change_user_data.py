@@ -10,6 +10,7 @@ class TestChangeUserData:
         user_methods = UserMethods()
         email, password, name, _, _ = create_user_and_delete
         status_code, response_context = user_methods.change_user_data_authorized(email, password, name)
+
         assert status_code == 200
         assert response_context is not None
 
@@ -17,5 +18,6 @@ class TestChangeUserData:
     def test_change_user_data_unauthorized(self):
         user_methods = UserMethods()
         status_code, response_message = user_methods.change_user_data_unauthorized()
+
         assert status_code == 401
         assert response_message == messages.SHOULD_BE_AUTHORIZED

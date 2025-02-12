@@ -10,6 +10,7 @@ class TestGetOrdersList:
         email, password, name, _, _ = create_user_and_delete
         order_methods = OrderMethods()
         status_code, response_message = order_methods.get_orders_list_authorized(email, password, name)
+
         assert status_code == 200
         assert 'orders' in response_message
 
@@ -17,5 +18,6 @@ class TestGetOrdersList:
     def test_get_orders_list_unauthorized(self):
         order_methods = OrderMethods()
         status_code, response_message = order_methods.get_orders_list_unauthorized()
+
         assert status_code == 401
         assert response_message == messages.SHOULD_BE_AUTHORIZED
