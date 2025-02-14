@@ -1,0 +1,1 @@
+{'success': True, 'user': {'email': 'test_user_06789@ya.ru', 'name': 'gestrij'}, 'accessToken': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YWY0YzM3OWVkMjgwMDAxYjU3MzFlMiIsImlhdCI6MTczOTU0MTU1OSwiZXhwIjoxNzM5NTQyNzU5fQ.7h2dLjrWcdcU7EF_a3MIK1mjZ94tLKA4MIkKY-iKFRE', 'refreshToken': '5f2e08d5d667cbdb24a1a2e898d12e7ed2d7c1989398e6fd692a296e1212e1af75f3267d79fa4004'}

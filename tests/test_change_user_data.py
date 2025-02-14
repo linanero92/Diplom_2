@@ -8,11 +8,11 @@ class TestChangeUserData:
     @allure.title('Проверка изменения данных под авторизованным пользователем')
     def test_change_user_data_with_login(self, create_user_and_delete):
         user_methods = UserMethods()
-        email, password, name, _, _ = create_user_and_delete
-        status_code, response_context = user_methods.change_user_data_authorized(email, password, name)
+        email, password, _, _ = create_user_and_delete
+        status_code, response_context = user_methods.change_user_data_authorized(email, password)
 
         assert status_code == 200
-        assert response_context is not None
+        assert 'email' in response_context['user']
 
     @allure.title('Проверка изменения данных пользователя без авторизации')
     def test_change_user_data_unauthorized(self):
